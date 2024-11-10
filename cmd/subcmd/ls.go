@@ -129,6 +129,11 @@ func (ls *LsCommand) Process() error {
 		ls.decryptionFlagValues.Key = ls.account.Password
 	}
 
+	// Expand wildcards
+	if (ls.listFlagValues.WildcardExpansion) {
+		commons.ExpandWildcards(ls.filesystem, ls.sourcePaths, true, true)
+	}
+
 	// run
 	for _, sourcePath := range ls.sourcePaths {
 		err = ls.listOne(sourcePath)
