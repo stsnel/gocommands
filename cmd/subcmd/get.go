@@ -48,6 +48,7 @@ func AddGetCommand(rootCmd *cobra.Command) {
 	flag.SetDecryptionFlags(getCmd)
 	flag.SetHiddenFileFlags(getCmd)
 	flag.SetPostTransferFlagValues(getCmd)
+	flag.SetWildcardSearchFlags(getCmd)
 
 	rootCmd.AddCommand(getCmd)
 }
@@ -77,6 +78,7 @@ type GetCommand struct {
 	postTransferFlagValues         *flag.PostTransferFlagValues
 	hiddenFileFlagValues           *flag.HiddenFileFlagValues
 	transferReportFlagValues       *flag.TransferReportFlagValues
+	wildcardSearchFlagValues       *flag.WildcardSearchFlagValues
 
 	maxConnectionNum int
 
@@ -108,6 +110,7 @@ func NewGetCommand(command *cobra.Command, args []string) (*GetCommand, error) {
 		postTransferFlagValues:         flag.GetPostTransferFlagValues(),
 		hiddenFileFlagValues:           flag.GetHiddenFileFlagValues(),
 		transferReportFlagValues:       flag.GetTransferReportFlagValues(command),
+		wildcardSearchFlagValues:       flag.GetWildcardSearchFlagValues(),
 
 		updatedPathMap: map[string]bool{},
 	}

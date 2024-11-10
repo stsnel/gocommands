@@ -40,6 +40,7 @@ func AddCpCommand(rootCmd *cobra.Command) {
 	flag.SetSyncFlags(cpCmd, false)
 	flag.SetHiddenFileFlags(cpCmd)
 	flag.SetTransferReportFlags(cpCmd)
+	flag.SetWildcardSearchFlags(cpCmd)
 
 	rootCmd.AddCommand(cpCmd)
 }
@@ -66,6 +67,7 @@ type CpCommand struct {
 	syncFlagValues                 *flag.SyncFlagValues
 	hiddenFileFlagValues           *flag.HiddenFileFlagValues
 	transferReportFlagValues       *flag.TransferReportFlagValues
+	wildcardSearchFlagValues       *flag.WildcardSearchFlagValues
 
 	account    *irodsclient_types.IRODSAccount
 	filesystem *irodsclient_fs.FileSystem
@@ -92,6 +94,7 @@ func NewCpCommand(command *cobra.Command, args []string) (*CpCommand, error) {
 		syncFlagValues:                 flag.GetSyncFlagValues(),
 		hiddenFileFlagValues:           flag.GetHiddenFileFlagValues(),
 		transferReportFlagValues:       flag.GetTransferReportFlagValues(command),
+		wildcardSearchFlagValues:       flag.GetWildcardSearchFlagValues(),
 
 		updatedPathMap: map[string]bool{},
 	}

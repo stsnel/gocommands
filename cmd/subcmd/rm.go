@@ -25,6 +25,7 @@ func AddRmCommand(rootCmd *cobra.Command) {
 
 	flag.SetForceFlags(rmCmd, false)
 	flag.SetRecursiveFlags(rmCmd, false)
+	flag.SetWildcardSearchFlags(rmCmd)
 
 	rootCmd.AddCommand(rmCmd)
 }
@@ -41,8 +42,9 @@ func processRmCommand(command *cobra.Command, args []string) error {
 type RmCommand struct {
 	command *cobra.Command
 
-	recursiveFlagValues *flag.RecursiveFlagValues
-	forceFlagValues     *flag.ForceFlagValues
+	recursiveFlagValues       *flag.RecursiveFlagValues
+	forceFlagValues           *flag.ForceFlagValues
+	wildcardSearchFlagValues  *flag.WildcardSearchFlagValues
 
 	account    *irodsclient_types.IRODSAccount
 	filesystem *irodsclient_fs.FileSystem
@@ -54,8 +56,9 @@ func NewRmCommand(command *cobra.Command, args []string) (*RmCommand, error) {
 	rm := &RmCommand{
 		command: command,
 
-		recursiveFlagValues: flag.GetRecursiveFlagValues(),
-		forceFlagValues:     flag.GetForceFlagValues(),
+		recursiveFlagValues:      flag.GetRecursiveFlagValues(),
+		forceFlagValues:          flag.GetForceFlagValues(),
+		wildcardSearchFlagValues: flag.GetWildcardSearchFlagValues(),
 	}
 
 	// path
